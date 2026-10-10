@@ -1,0 +1,6 @@
+{
+  "name": "TOORSY — Travel Enquiry & Trip Planning",
+  "description": "Plan your trip. Get the right ride. Custom trip planning and vehicle hire enquiry service.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

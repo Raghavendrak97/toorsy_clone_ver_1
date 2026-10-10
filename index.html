@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOORSY — Plan Your Trip. Get the Right Ride.</title>
+  <meta name="description" content="Plan your trip with Toorsy. Share your destinations, dates, travellers and preferences and get suitable travel options for your journey." />
+  
+  <!-- Canonical & Robots -->
+  <link rel="canonical" href="https://toorsy.com/" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toorsy.com/" />
+  <meta property="og:title" content="TOORSY — Plan Your Trip. Get the Right Ride." />
+  <meta property="og:description" content="Plan your trip with Toorsy. Share your destinations, dates, travellers and preferences and get suitable travel options for your journey." />
+  <meta property="og:site_name" content="TOORSY" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TOORSY — Plan Your Trip. Get the Right Ride." />
+  <meta name="twitter:description" content="Plan your trip with Toorsy. Share your destinations, dates, travellers and preferences and get suitable travel options for your journey." />
+  
+  <!-- Favicon Emoji -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "TOORSY",
+    "url": "https://toorsy.com",
+    "description": "Plan your trip. Get the right ride. Travel enquiry and curated vehicle hire coordination.",
+    "slogan": "Plan your trip. Get the right ride.",
+    "potentialAction": {
+      "@type": "PlanAction",
+      "target": "https://toorsy.com/#planTripSection"
+    }
+  }
+  </script>
+
+  <!-- Leaflet CSS for Interactive OpenStreetMap Routing -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+  <!-- Web App Status & Integration Banner (Convenience for testing) -->
+  <aside class="dev-status-bar" id="integrationBar" aria-label="System status">
+    <div style="display: flex; align-items: center; gap: 0.65rem;">
+      <span class="status-badge pending" id="sheetsConnectionBadge">
+        <span class="dot"></span> Checking backend status
+      </span>
+      <span style="display: none;" id="activeScriptUrlDisplay"></span>
+    </div>
+    <button type="button" class="btn-open-config" id="btnOpenScriptConfig">
+      ⚙️ Google Apps Script Settings
+    </button>
+  </aside>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="brand-logo" aria-label="TOORSY Home">
+        <div class="brand-mark">T</div>
+        <div class="brand-text-wrap">
+          <span class="brand-name">TOORSY</span>
+          <span class="brand-subtext">Plan your trip. Get the right ride.</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-links-desktop" aria-label="Primary Navigation">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#howItWorks" class="nav-link" data-scroll-to="howItWorks">How It Works</a>
+        <a href="#planTripSection" class="nav-link" data-scroll-to="planTripSection">Plan My Trip</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn-header-cta btn-plan-cta" data-scroll-to="planTripSection" data-cta-source="header">
+          Plan My Trip
+        </button>
+        <button type="button" class="btn-mobile-menu" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Dropdown -->
+    <nav class="mobile-nav-menu" id="mobileNavMenu" aria-label="Mobile Navigation">
+      <a href="#" class="mobile-nav-link">Home</a>
+      <a href="#howItWorks" class="mobile-nav-link" data-scroll-to="howItWorks">How It Works</a>
+      <a href="#planTripSection" class="mobile-nav-link" data-scroll-to="planTripSection">Plan My Trip</a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-container">
+        <div class="hero-tagline-pill">
+          <span>✨</span> Plan your trip. Get the right ride.
+        </div>
+        <h1 class="hero-title">Your trip. Your way.</h1>
+        <p class="hero-subtitle">
+          Tell us where you want to go, when you want to travel and what you need. We'll help you find the right travel option for your trip.
+        </p>
+
+        <div class="hero-cta-group">
+          <button type="button" class="btn-primary-hero btn-plan-cta" data-scroll-to="planTripSection" data-cta-source="hero">
+            <span>Plan My Trip</span>
+            <span aria-hidden="true">➔</span>
+          </button>
+          <p class="hero-reassurance">No complicated booking process. Just tell us what you need.</p>
+        </div>
+
+        <div class="trust-bar">
+          <div class="trust-item">
+            <span class="icon">✓</span>
+            <span>Handpicked Drivers & Cabs</span>
+          </div>
+          <div class="trust-item">
+            <span class="icon">✓</span>
+            <span>Personalized Trip Review</span>
+          </div>
+          <div class="trust-item">
+            <span class="icon">✓</span>
+            <span>Zero Booking Fees Upfront</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALUE PROPOSITION -->
+    <section class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <p class="section-eyebrow">Why TOORSY</p>
+          <h2 class="section-title">Hassle-Free Trip Planning</h2>
+          <p class="section-desc">We connect your travel requirements with trusted drivers and operators across India.</p>
+        </div>
+
+        <div class="value-grid">
+          <div class="value-card">
+            <div class="value-icon-box">📝</div>
+            <h3>Tell Us Your Trip</h3>
+            <p>Share your destinations, dates, travellers and preferences in our quick 2-minute enquiry form.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon-box">🔍</div>
+            <h3>We Find Options</h3>
+            <p>TOORSY reviews your enquiry and contacts suitable travel operators to source the most reliable options.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon-box">🤝</div>
+            <h3>You Choose</h3>
+            <p>We come back to you with suitable options and quotes. You decide what works best for your schedule and budget.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section how-it-works-section" id="howItWorks">
+      <div class="section-container">
+        <div class="section-header">
+          <p class="section-eyebrow">Simple 4-Step Process</p>
+          <h2 class="section-title">How TOORSY Works</h2>
+          <p class="section-desc">From your initial thoughts to hitting the road with peace of mind.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <h4>Plan</h4>
+            <p>Tell us about your trip, destinations, group size and vehicle preference.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <h4>Match</h4>
+            <p>We look for suitable travel options and contact verified driver operators.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <h4>Compare</h4>
+            <p>We receive relevant options with transparent terms tailored to your route.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">04</div>
+            <h4>Decide</h4>
+            <p>You choose what works for you. No pressure, no hidden fees.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MULTI-STEP ENQUIRY FORM SECTION -->
+    <section class="form-section" id="planTripSection">
+      <div class="form-container" id="formContainer">
+
+        <!-- Form Active View -->
+        <div id="formSection">
+          
+          <!-- Form Header & Progress Bar -->
+          <div class="form-header-bar">
+            <div class="form-header-top">
+              <div class="form-step-title-wrap">
+                <span class="form-current-step-label" id="currentStepIndicator">Step 1 of 8: Trip</span>
+                <h2 class="form-heading">Plan Your Trip</h2>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-container" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1">
+              <div class="progress-bar-fill" id="formProgressBar"></div>
+            </div>
+
+            <!-- Stepper Timeline Markers -->
+            <div class="stepper-nav" aria-hidden="true">
+              <div class="step-marker active" data-step="1">
+                <div class="circle">1</div>
+                <span>Trip</span>
+              </div>
+              <div class="step-marker" data-step="2">
+                <div class="circle">2</div>
+                <span>Dates</span>
+              </div>
+              <div class="step-marker" data-step="3">
+                <div class="circle">3</div>
+                <span>People</span>
+              </div>
+              <div class="step-marker" data-step="4">
+                <div class="circle">4</div>
+                <span>Vehicle</span>
+              </div>
+              <div class="step-marker" data-step="5">
+                <div class="circle">5</div>
+                <span>Explore</span>
+              </div>
+              <div class="step-marker" data-step="6">
+                <div class="circle">6</div>
+                <span>Stay</span>
+              </div>
+              <div class="step-marker" data-step="7">
+                <div class="circle">7</div>
+                <span>Contact</span>
+              </div>
+              <div class="step-marker" data-step="8">
+                <div class="circle">8</div>
+                <span>Review</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Body -->
+          <div class="form-body">
+            <form id="toorsyTripForm" novalidate>
+
+              <!-- STEP 1: TRIP -->
+              <div class="step-pane active" id="stepPane_1">
+                <h3 class="step-legend">Where would you like to travel?</h3>
+                <p class="step-intro">Tell us your starting point and the destinations on your wishlist.</p>
+
+                <!-- Full Name -->
+                <div class="form-group">
+                  <label for="fullName" class="form-label">Full Name <span class="req">*</span></label>
+                  <input type="text" id="fullName" name="fullName" class="form-input" placeholder="e.g. Rahul Sharma" autocomplete="name" required />
+                  <p class="form-error-msg hidden" id="error_fullName"></p>
+                </div>
+
+                <!-- Route Architecture: Starting Location, Unlimited Stops, Main Destination & Interactive Map -->
+                <div class="route-builder-card">
+                  <div class="route-builder-header">
+                    <span class="route-builder-title">📍 Your Journey Route</span>
+                    <span class="route-builder-hint">Start, stops, destination &amp; interactive road preview</span>
+                  </div>
+
+                  <div class="route-split-grid">
+                    <!-- Left Column: Location fields & Stops -->
+                    <div class="route-fields-col">
+                      <!-- Starting Location (The Obvious First Point) -->
+                      <div class="starting-location-box" id="startLocationBox">
+                        <div class="starting-point-badge-row">
+                          <span class="route-step-pill start">POINT 1 — START / PICKUP</span>
+                          <span class="point-sub-hint">Where does your journey begin?</span>
+                        </div>
+                        <label for="startingLocation" class="form-label starting-hero-label">
+                          Starting Location / Pickup Hub <span class="req">*</span>
+                        </label>
+                        <div class="input-suggest-wrap" id="startLocationWrap">
+                          <div class="input-with-leading-icon">
+                            <span class="leading-dot start">🟢</span>
+                            <input type="text" id="startingLocation" name="startingLocation" class="form-input hero-start-input" placeholder="Search city, airport, station or landmark (e.g. Bengaluru)..." autocomplete="off" required />
+                          </div>
+                          <p class="form-error-msg hidden" id="error_startingLocation"></p>
+                        </div>
+
+                        <!-- Quick Popular Pickup Hubs -->
+                        <div class="quick-pickup-hubs">
+                          <span class="quick-hubs-label">Suggested Pickup Cities:</span>
+                          <div class="quick-hubs-chips">
+                            <button type="button" class="quick-hub-btn" data-input="startingLocation" data-city="Bengaluru, Karnataka" data-lat="12.97679" data-lon="77.59008">Bengaluru</button>
+                            <button type="button" class="quick-hub-btn" data-input="startingLocation" data-city="Mysuru, Karnataka" data-lat="12.29581" data-lon="76.63938">Mysuru</button>
+                            <button type="button" class="quick-hub-btn" data-input="startingLocation" data-city="Mangaluru, Karnataka" data-lat="12.91414" data-lon="74.85596">Mangaluru</button>
+                            <button type="button" class="quick-hub-btn" data-input="startingLocation" data-city="Hyderabad, Telangana" data-lat="17.38504" data-lon="78.48667">Hyderabad</button>
+                            <button type="button" class="quick-hub-btn" data-input="startingLocation" data-city="Chennai, Tamil Nadu" data-lat="13.08268" data-lon="80.27072">Chennai</button>
+                            <button type="button" class="quick-hub-btn" data-input="startingLocation" data-city="Mumbai, Maharashtra" data-lat="19.07609" data-lon="72.87743">Mumbai</button>
+                            <button type="button" class="quick-hub-btn" data-input="startingLocation" data-city="Goa" data-lat="15.29933" data-lon="73.82785">Goa</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Dynamic Stops Container (No limit on stops) -->
+                      <div class="stops-section">
+                        <div class="stops-section-header">
+                          <label class="form-label" style="margin-bottom: 0;">
+                            <span class="route-dot via"></span> Intermediate Stops / Waypoints
+                            <span class="stops-count-badge" id="stopsCountBadge">0 stops</span>
+                          </label>
+                          <span class="form-hint">No limit — add as many stopovers as you need</span>
+                        </div>
+
+                        <div id="stopsListContainer" class="stops-list">
+                          <div class="stops-empty-hint" id="stopsEmptyHint">
+                            No intermediate stops added yet. Click <strong>+ Add Stop</strong> to add places along the way.
+                          </div>
+                        </div>
+
+                        <button type="button" class="btn-add-stop" id="btnAddStop">
+                          <span class="icon">+</span>
+                          <span>Add Intermediate Stop</span>
+                        </button>
+                      </div>
+
+                      <!-- Main Destination -->
+                      <div class="form-group" style="margin-bottom: 0.5rem;">
+                        <label for="mainDestination" class="form-label">
+                          <span class="route-dot end"></span> Main Destination / Final Stop <span class="req">*</span>
+                        </label>
+                        <div class="input-suggest-wrap" id="destLocationWrap">
+                          <input type="text" id="mainDestination" name="mainDestination" class="form-input" placeholder="Type destination city, town or tourist spot (e.g. Goa)..." autocomplete="off" required />
+                          <p class="form-error-msg hidden" id="error_mainDestination"></p>
+                        </div>
+                      </div>
+
+                      <!-- Dynamic Journey Flow Preview -->
+                      <div id="routeJourneyPreview" class="route-journey-preview hidden">
+                        <span class="preview-label">Route Flow:</span>
+                        <div id="routeJourneyFlow" class="route-flow-items"></div>
+                      </div>
+                    </div>
+
+                    <!-- Right Column: Interactive OpenStreetMap & Distance / Time -->
+                    <div class="route-map-col">
+                      <div class="map-card-wrapper">
+                        <div class="map-card-header">
+                          <div class="map-header-title">
+                            <span class="icon">🗺️</span>
+                            <strong>Interactive Road Map</strong>
+                          </div>
+                          <div class="map-header-badge neutral" id="mapRouteStatusBadge">
+                            <span class="dot"></span> Awaiting route
+                          </div>
+                        </div>
+
+                        <!-- Map Error / Status Notice -->
+                        <div id="mapErrorNotice" class="map-error-notice hidden" role="alert"></div>
+
+                        <!-- Leaflet map canvas -->
+                        <div id="toorsyRouteMap" class="route-map-canvas" role="region" aria-label="Interactive Route Map"></div>
+
+                        <!-- Route Distance & Time Card -->
+                        <div class="route-metric-card" id="routeMetricCard">
+                          <div class="metric-empty-state" id="metricEmptyState">
+                            <span>📍</span> Enter starting location &amp; destination to preview actual road route &amp; distance.
+                          </div>
+
+                          <div class="metric-active-state hidden" id="metricActiveState">
+                            <div class="metric-heading">
+                              <strong>Estimated Route</strong>
+                            </div>
+
+                            <div class="metric-highlight-row">
+                              <div class="metric-item">
+                                <span class="metric-label">Road Distance</span>
+                                <span class="metric-value" id="routeDistanceDisplay">-- km</span>
+                              </div>
+                              <div class="metric-divider"></div>
+                              <div class="metric-item">
+                                <span class="metric-label">Driving Time</span>
+                                <span class="metric-value" id="routeDurationDisplay">-- hr -- min</span>
+                              </div>
+                            </div>
+
+                            <div class="metric-route-summary" id="routeSummaryStopsLine"></div>
+
+                            <p class="metric-disclaimer">
+                              Distance and driving time are approximate and may vary depending on the route, traffic, road conditions and stops.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Roaming Kilometers Section -->
+                <div class="roaming-card">
+                  <div class="roaming-header">
+                    <label for="roamingKilometers" class="form-label" style="margin-bottom: 0.2rem;">
+                      🚗 Local Roaming / Sightseeing Kilometers
+                    </label>
+                    <p class="form-hint">Approximate distance needed for local travel, hotel-to-attractions, and roaming during your stay.</p>
+                  </div>
+
+                  <div class="roaming-controls">
+                    <div class="roaming-chips-wrap" role="group" aria-label="Preset roaming kilometers">
+                      <button type="button" class="roaming-chip" data-km="50">50 km</button>
+                      <button type="button" class="roaming-chip active" data-km="100">100 km</button>
+                      <button type="button" class="roaming-chip" data-km="150">150 km</button>
+                      <button type="button" class="roaming-chip" data-km="250">250 km</button>
+                      <button type="button" class="roaming-chip" data-km="custom">Custom</button>
+                    </div>
+
+                    <div class="input-with-addon">
+                      <input type="number" id="roamingKilometers" name="roamingKilometers" class="form-input" placeholder="e.g. 100" min="0" max="5000" value="100" />
+                      <span class="input-addon">km</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Additional destinations / notes -->
+                <div class="form-group">
+                  <label for="additionalDestinations" class="form-label">Additional Route Notes / Specific Requests <span class="form-hint">(Optional)</span></label>
+                  <textarea id="additionalDestinations" name="additionalDestinations" class="form-textarea" placeholder="e.g. Prefer scenic coastal highway NH66, lunch stopover at Murudeshwar, pickup from airport..."></textarea>
+                  <p class="form-hint">Any specific routes, timings, or scenic detours you would like to request.</p>
+                </div>
+
+                <!-- Trip Type -->
+                <div class="form-group">
+                  <label class="form-label">Trip Type <span class="req">*</span></label>
+                  <div class="trip-type-grid" role="radiogroup" aria-label="Trip Type">
+                    <button type="button" class="trip-type-btn" data-trip-type="One Way">One Way</button>
+                    <button type="button" class="trip-type-btn" data-trip-type="Round Trip">Round Trip</button>
+                    <button type="button" class="trip-type-btn" data-trip-type="Multi-City">Multi-City</button>
+                    <button type="button" class="trip-type-btn" data-trip-type="Local Sightseeing">Local Sightseeing</button>
+                    <button type="button" class="trip-type-btn" data-trip-type="Custom Trip">Custom Trip</button>
+                  </div>
+                  <input type="hidden" id="tripType" name="tripType" value="" />
+                  <p class="form-error-msg hidden" id="error_tripType"></p>
+                </div>
+              </div>
+
+              <!-- STEP 2: DATES -->
+              <div class="step-pane" id="stepPane_2">
+                <h3 class="step-legend">When are you travelling?</h3>
+                <p class="step-intro">Select your planned start and return dates. We will automatically calculate the trip duration.</p>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="tripStartDate" class="form-label">Trip Start Date <span class="req">*</span></label>
+                    <input type="date" id="tripStartDate" name="tripStartDate" class="form-input" required />
+                    <p class="form-error-msg hidden" id="error_tripStartDate"></p>
+                  </div>
+                  <div class="form-group">
+                    <label for="tripEndDate" class="form-label">Trip End Date <span class="req">*</span></label>
+                    <input type="date" id="tripEndDate" name="tripEndDate" class="form-input" required />
+                    <p class="form-error-msg hidden" id="error_tripEndDate"></p>
+                  </div>
+                </div>
+
+                <!-- Duration display badge -->
+                <div id="tripDurationBadge" class="dynamic-badge hidden">
+                  <span>📅</span>
+                  <span id="tripDurationText">Trip duration: calculating...</span>
+                </div>
+
+                <!-- Flexible Dates -->
+                <div class="form-group">
+                  <label class="form-label">Are Your Travel Dates Flexible? <span class="req">*</span></label>
+                  <div class="radio-card-group" role="radiogroup">
+                    <label class="radio-card-label">
+                      <input type="radio" name="flexibleDates" value="Yes" />
+                      <div class="radio-card-box">Yes, flexible</div>
+                    </label>
+                    <label class="radio-card-label">
+                      <input type="radio" name="flexibleDates" value="No" checked />
+                      <div class="radio-card-box">No, fixed dates</div>
+                    </label>
+                    <label class="radio-card-label">
+                      <input type="radio" name="flexibleDates" value="Slightly Flexible" />
+                      <div class="radio-card-box">Slightly Flexible (±1-2 days)</div>
+                    </label>
+                  </div>
+                  <p class="form-error-msg hidden" id="error_flexibleDates"></p>
+                </div>
+              </div>
+
+              <!-- STEP 3: TRAVELLERS -->
+              <div class="step-pane" id="stepPane_3">
+                <h3 class="step-legend">Who is travelling with you?</h3>
+                <p class="step-intro">Adjust traveller counts to help us recommend comfortable seating arrangements.</p>
+
+                <!-- Total Travellers badge -->
+                <div id="totalTravellersBadge" class="dynamic-badge">
+                  <span>👥</span>
+                  <span id="totalTravellersText">Total travellers: 2 (2 Adults)</span>
+                </div>
+
+                <div class="form-row-3">
+                  <!-- Adults -->
+                  <div class="stepper-widget">
+                    <span class="stepper-title">Adults <span class="req">*</span></span>
+                    <span class="stepper-subtitle">(Age 12+)</span>
+                    <div class="stepper-controls">
+                      <button type="button" class="stepper-btn" data-field="adults" data-change="-1" aria-label="Decrease Adults">-</button>
+                      <span class="stepper-value" id="display_adults">2</span>
+                      <button type="button" class="stepper-btn" data-field="adults" data-change="1" aria-label="Increase Adults">+</button>
+                    </div>
+                    <input type="hidden" id="adults" name="adults" value="2" />
+                    <p class="form-error-msg hidden" id="error_adults"></p>
+                  </div>
+
+                  <!-- Children -->
+                  <div class="stepper-widget">
+                    <span class="stepper-title">Children</span>
+                    <span class="stepper-subtitle">(Under age 12)</span>
+                    <div class="stepper-controls">
+                      <button type="button" class="stepper-btn" data-field="children" data-change="-1" aria-label="Decrease Children">-</button>
+                      <span class="stepper-value" id="display_children">0</span>
+                      <button type="button" class="stepper-btn" data-field="children" data-change="1" aria-label="Increase Children">+</button>
+                    </div>
+                    <input type="hidden" id="children" name="children" value="0" />
+                    <p class="form-error-msg hidden" id="error_children"></p>
+                  </div>
+
+                  <!-- Senior Citizens -->
+                  <div class="stepper-widget">
+                    <span class="stepper-title">Senior Citizens</span>
+                    <span class="stepper-subtitle">(Age 60+)</span>
+                    <div class="stepper-controls">
+                      <button type="button" class="stepper-btn" data-field="seniorCitizens" data-change="-1" aria-label="Decrease Senior Citizens">-</button>
+                      <span class="stepper-value" id="display_seniorCitizens">0</span>
+                      <button type="button" class="stepper-btn" data-field="seniorCitizens" data-change="1" aria-label="Increase Senior Citizens">+</button>
+                    </div>
+                    <input type="hidden" id="seniorCitizens" name="seniorCitizens" value="0" />
+                    <p class="form-error-msg hidden" id="error_seniorCitizens"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 4: VEHICLE -->
+              <div class="step-pane" id="stepPane_4">
+                <h3 class="step-legend">Choose your preferred vehicle</h3>
+                <p class="step-intro">Select the vehicle class that fits your group and luggage needs.</p>
+
+                <div class="vehicle-grid" role="radiogroup" aria-label="Vehicle Preference">
+                  <!-- Sedan -->
+                  <div class="vehicle-card" data-vehicle="Sedan" role="radio" aria-checked="false" tabindex="0">
+                    <div class="vehicle-card-top">
+                      <span class="vehicle-emoji">🚗</span>
+                      <span class="vehicle-capacity-tag">4 Passengers</span>
+                    </div>
+                    <div class="vehicle-card-name">Sedan</div>
+                    <div class="vehicle-card-desc">Dzire, Etios or similar. Comfortable for small families & couples with light luggage.</div>
+                  </div>
+
+                  <!-- SUV -->
+                  <div class="vehicle-card" data-vehicle="SUV" role="radio" aria-checked="false" tabindex="0">
+                    <div class="vehicle-card-top">
+                      <span class="vehicle-emoji">🚙</span>
+                      <span class="vehicle-capacity-tag">6-7 Passengers</span>
+                    </div>
+                    <div class="vehicle-card-name">SUV</div>
+                    <div class="vehicle-card-desc">Ertiga, Carens, Scorpio. Great legroom and boot capacity for highway cruising.</div>
+                  </div>
+
+                  <!-- Innova / Similar -->
+                  <div class="vehicle-card" data-vehicle="Innova / Similar" role="radio" aria-checked="false" tabindex="0">
+                    <div class="vehicle-card-top">
+                      <span class="vehicle-emoji">🚐</span>
+                      <span class="vehicle-capacity-tag">6-7 Passengers</span>
+                    </div>
+                    <div class="vehicle-card-name">Innova / Similar</div>
+                    <div class="vehicle-card-desc">Innova Crysta / Hycross. Gold standard for long-distance family touring comfort.</div>
+                  </div>
+
+                  <!-- Tempo Traveller -->
+                  <div class="vehicle-card" data-vehicle="Tempo Traveller" role="radio" aria-checked="false" tabindex="0">
+                    <div class="vehicle-card-top">
+                      <span class="vehicle-emoji">🚌</span>
+                      <span class="vehicle-capacity-tag">9-16 Passengers</span>
+                    </div>
+                    <div class="vehicle-card-name">Tempo Traveller</div>
+                    <div class="vehicle-card-desc">Push-back seats, AC, high roof. Ideal for extended families & group excursions.</div>
+                  </div>
+
+                  <!-- Mini Bus -->
+                  <div class="vehicle-card" data-vehicle="Mini Bus" role="radio" aria-checked="false" tabindex="0">
+                    <div class="vehicle-card-top">
+                      <span class="vehicle-emoji">🚎</span>
+                      <span class="vehicle-capacity-tag">17-25 Passengers</span>
+                    </div>
+                    <div class="vehicle-card-name">Mini Bus</div>
+                    <div class="vehicle-card-desc">Spacious group coach for pilgrimages, corporate offsites, and wedding guests.</div>
+                  </div>
+
+                  <!-- Bus -->
+                  <div class="vehicle-card" data-vehicle="Bus" role="radio" aria-checked="false" tabindex="0">
+                    <div class="vehicle-card-top">
+                      <span class="vehicle-emoji">🚍</span>
+                      <span class="vehicle-capacity-tag">26+ Passengers</span>
+                    </div>
+                    <div class="vehicle-card-name">Bus</div>
+                    <div class="vehicle-card-desc">Full-size luxury tourist bus for large group pilgrimages or celebrations.</div>
+                  </div>
+
+                  <!-- Not Sure -->
+                  <div class="vehicle-card" data-vehicle="Not Sure" role="radio" aria-checked="false" tabindex="0">
+                    <div class="vehicle-card-top">
+                      <span class="vehicle-emoji">💡</span>
+                      <span class="vehicle-capacity-tag">Expert Advice</span>
+                    </div>
+                    <div class="vehicle-card-name">Not Sure</div>
+                    <div class="vehicle-card-desc">Let TOORSY recommend the most practical and cost-effective ride for your route.</div>
+                  </div>
+                </div>
+
+                <input type="hidden" id="vehiclePreference" name="vehiclePreference" value="" />
+                <p class="form-error-msg hidden" id="error_vehiclePreference"></p>
+              </div>
+
+              <!-- STEP 5: EXPLORE -->
+              <div class="step-pane" id="stepPane_5">
+                <h3 class="step-legend">Explore & Local Sightseeing</h3>
+                <p class="step-intro">Do you want the vehicle available for local sightseeing and visits at your destinations?</p>
+
+                <!-- Sightseeing Choice -->
+                <div class="form-group">
+                  <label class="form-label">Do You Want Local Sightseeing / Roaming During The Trip? <span class="req">*</span></label>
+                  <div class="radio-card-group" role="radiogroup">
+                    <label class="radio-card-label">
+                      <input type="radio" name="localSightseeing" value="Yes" checked />
+                      <div class="radio-card-box">Yes, sightseeing included</div>
+                    </label>
+                    <label class="radio-card-label">
+                      <input type="radio" name="localSightseeing" value="No" />
+                      <div class="radio-card-box">No, only pickup / drop</div>
+                    </label>
+                    <label class="radio-card-label">
+                      <input type="radio" name="localSightseeing" value="Not Sure" />
+                      <div class="radio-card-box">Not Sure yet</div>
+                    </label>
+                  </div>
+                  <p class="form-error-msg hidden" id="error_localSightseeing"></p>
+                </div>
+
+                <!-- Conditional Sightseeing Details -->
+                <div id="sightseeingDetailsSection">
+                  <!-- Places to explore -->
+                  <div class="form-group">
+                    <label for="sightseeingPlaces" class="form-label">Places You Specifically Want To Explore <span class="form-hint">(Optional)</span></label>
+                    <textarea id="sightseeingPlaces" name="sightseeingPlaces" class="form-textarea" placeholder="e.g. Aguada Fort, Baga Beach, Dudhsagar Falls, Old Goa Churches"></textarea>
+                    <p class="form-hint">Tell us if there are specific viewpoints, temples, monuments or beaches on your list.</p>
+                  </div>
+
+                  <!-- Sightseeing preference -->
+                  <div class="form-group">
+                    <label for="sightseeingPreference" class="form-label">Sightseeing Preference <span class="req">*</span></label>
+                    <select id="sightseeingPreference" name="sightseeingPreference" class="form-select">
+                      <option value="Driver suggests places">Driver suggests places & local spots</option>
+                      <option value="Fixed itinerary">Fixed itinerary (we have our schedule ready)</option>
+                      <option value="Flexible">Flexible (decide on the go based on time & mood)</option>
+                    </select>
+                    <p class="form-error-msg hidden" id="error_sightseeingPreference"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 6: STAY -->
+              <div class="step-pane" id="stepPane_6">
+                <h3 class="step-legend">Stay & Accommodation</h3>
+                <p class="step-intro">Let us know if you need hotel or resort assistance, or if you already have it arranged.</p>
+
+                <!-- Need accommodation? -->
+                <div class="form-group">
+                  <label class="form-label">Do You Need Accommodation? <span class="req">*</span></label>
+                  <div class="radio-card-group" role="radiogroup">
+                    <label class="radio-card-label">
+                      <input type="radio" name="accommodationRequired" value="Yes" />
+                      <div class="radio-card-box">Yes, need hotel</div>
+                    </label>
+                    <label class="radio-card-label">
+                      <input type="radio" name="accommodationRequired" value="No" checked />
+                      <div class="radio-card-box">No, only cab needed</div>
+                    </label>
+                    <label class="radio-card-label">
+                      <input type="radio" name="accommodationRequired" value="I'll arrange it myself" />
+                      <div class="radio-card-box">I'll arrange it myself</div>
+                    </label>
+                  </div>
+                  <p class="form-error-msg hidden" id="error_accommodationRequired"></p>
+                </div>
+
+                <!-- Conditional Stay Details -->
+                <div id="accommodationDetailsSection" class="hidden">
+                  <div class="form-row-3">
+                    <!-- Rooms -->
+                    <div class="form-group">
+                      <label for="numberOfRooms" class="form-label">Number of Rooms</label>
+                      <input type="number" id="numberOfRooms" name="numberOfRooms" class="form-input" min="1" max="25" value="1" />
+                      <p class="form-error-msg hidden" id="error_numberOfRooms"></p>
+                    </div>
+
+                    <!-- Hotel Category -->
+                    <div class="form-group">
+                      <label for="hotelCategory" class="form-label">Hotel Category</label>
+                      <select id="hotelCategory" name="hotelCategory" class="form-select">
+                        <option value="3 Star">3 Star Comfort</option>
+                        <option value="Budget">Budget / Homestay</option>
+                        <option value="4 Star">4 Star Premium</option>
+                        <option value="5 Star">5 Star Luxury Resort</option>
+                        <option value="No Preference">No Preference</option>
+                      </select>
+                      <p class="form-error-msg hidden" id="error_hotelCategory"></p>
+                    </div>
+
+                    <!-- Hotel Budget -->
+                    <div class="form-group">
+                      <label for="hotelBudget" class="form-label">Budget Per Room / Night</label>
+                      <input type="text" id="hotelBudget" name="hotelBudget" class="form-input" placeholder="e.g. ₹2500" />
+                      <p class="form-hint">Approximate expected range</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 7: CONTACT -->
+              <div class="step-pane" id="stepPane_7">
+                <h3 class="step-legend">How can we reach you?</h3>
+                <p class="step-intro">We will review your requirements and get in touch with verified quotes.</p>
+
+                <div class="form-row-2">
+                  <!-- Mobile Number -->
+                  <div class="form-group">
+                    <label for="mobileNumber" class="form-label">Mobile Number <span class="req">*</span></label>
+                    <input type="tel" id="mobileNumber" name="mobileNumber" class="form-input" placeholder="e.g. 9876543210" maxlength="14" autocomplete="tel" required />
+                    <p class="form-hint">10-digit Indian mobile number</p>
+                    <p class="form-error-msg hidden" id="error_mobileNumber"></p>
+                  </div>
+
+                  <!-- WhatsApp Number -->
+                  <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                      <label for="whatsappNumber" class="form-label">WhatsApp Number <span class="form-hint">(Optional)</span></label>
+                      <button type="button" class="btn-text-action" id="btnSameAsMobile">Same as mobile</button>
+                    </div>
+                    <input type="tel" id="whatsappNumber" name="whatsappNumber" class="form-input" placeholder="e.g. 9876543210" maxlength="14" />
+                    <p class="form-error-msg hidden" id="error_whatsappNumber"></p>
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <!-- Email -->
+                  <div class="form-group">
+                    <label for="email" class="form-label">Email Address <span class="form-hint">(Optional)</span></label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="name@example.com" autocomplete="email" />
+                    <p class="form-error-msg hidden" id="error_email"></p>
+                  </div>
+
+                  <!-- Preferred Contact Method -->
+                  <div class="form-group">
+                    <label for="preferredContactMethod" class="form-label">Preferred Way To Contact You <span class="req">*</span></label>
+                    <select id="preferredContactMethod" name="preferredContactMethod" class="form-select">
+                      <option value="WhatsApp">WhatsApp</option>
+                      <option value="Phone Call">Phone Call</option>
+                      <option value="Either">Either WhatsApp or Call</option>
+                    </select>
+                    <p class="form-error-msg hidden" id="error_preferredContactMethod"></p>
+                  </div>
+                </div>
+
+                <!-- Special Requirements -->
+                <div class="form-group">
+                  <label for="specialRequirements" class="form-label">Anything Else We Should Know About Your Trip? <span class="form-hint">(Optional)</span></label>
+                  <textarea id="specialRequirements" name="specialRequirements" class="form-textarea" placeholder="Anything about luggage, elderly travellers, pickup requirements, special occasions, timing preferences, etc."></textarea>
+                </div>
+
+                <!-- Consent to Contact Checkbox -->
+                <div class="consent-checkbox-wrap">
+                  <input type="checkbox" id="consentToContact" name="consentToContact" class="consent-checkbox" required />
+                  <label for="consentToContact" class="consent-label">
+                    I agree to be contacted by Toorsy regarding my travel enquiry.
+                  </label>
+                </div>
+                <p class="form-error-msg hidden" id="error_consentToContact"></p>
+              </div>
+
+              <!-- STEP 8: REVIEW -->
+              <div class="step-pane" id="stepPane_8">
+                <h3 class="step-legend">Review Your Trip Details</h3>
+                <p class="step-intro">Please confirm your enquiry summary below. You can edit any section before submitting.</p>
+
+                <!-- Failure Banner (displayed only if server request fails) -->
+                <div class="submit-error-banner hidden" id="submitErrorBanner">
+                  <span class="submit-error-icon">⚠️</span>
+                  <div>
+                    <div class="submit-error-title">Submission could not be completed</div>
+                    <div class="submit-error-message" id="submitErrorMessage">
+                      We couldn't send your enquiry right now. Your information has not been confirmed as submitted. Please try again.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Structured Review Cards (dynamically populated) -->
+                <div id="reviewSummaryContainer">
+                  <!-- Generated by TripFormController.renderReviewSummary() -->
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- Form Footer Navigation -->
+          <div class="form-footer">
+            <button type="button" class="btn-nav-prev" id="btnPrevStep" style="display: none;">
+              <span aria-hidden="true">⬅</span>
+              <span>Back</span>
+            </button>
+
+            <button type="button" class="btn-nav-next" id="btnNextStep">
+              <span>Continue</span>
+              <span aria-hidden="true">➔</span>
+            </button>
+
+            <button type="button" class="btn-nav-submit" id="btnSubmitEnquiry" style="display: none;">
+              <span>Send Enquiry</span>
+              <span class="icon" aria-hidden="true">➔</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- SUCCESS SCREEN (Section 16) -->
+        <div id="successSection" class="success-container hidden">
+          <div class="success-badge-icon">✓</div>
+          <h2 class="success-title">Enquiry Received!</h2>
+          <p class="success-subtitle">Thanks! Your trip enquiry has been received.</p>
+
+          <div class="reference-box">
+            <div class="reference-label">Your Enquiry Reference</div>
+            <div class="reference-code" id="enquiryReferenceCode">TYS-XXXXXXXX-XXXX</div>
+          </div>
+
+          <div class="success-clarification">
+            Our team will review your requirements and contact you regarding suitable travel options.
+          </div>
+
+          <div class="success-action-buttons">
+            <a href="#" class="btn-whatsapp-success" id="btnWhatsAppSuccess" target="_blank" rel="noopener noreferrer">
+              <span>💬</span>
+              <span>WhatsApp Toorsy</span>
+            </a>
+            <button type="button" class="btn-secondary-action" id="btnPlanAnotherTrip">
+              Plan Another Trip
+            </button>
+            <a href="#" class="btn-secondary-action" data-scroll-to="planTripSection">
+              Back to Home
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>TOORSY</h4>
+          <p>Plan your trip. Get the right ride. Handcrafted itinerary quotes and reliable cabs with verified operators across India.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#howItWorks" data-scroll-to="howItWorks">How It Works</a></li>
+            <li><a href="#planTripSection" data-scroll-to="planTripSection">Plan My Trip</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Direct Contact</h5>
+          <ul>
+            <li><a href="tel:+919876543210" class="btn-phone-contact">📞 Call TOORSY</a></li>
+            <li><a href="https://wa.me/919876543210" class="btn-whatsapp-contact" target="_blank" rel="noopener noreferrer">💬 Chat on WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 TOORSY. All rights reserved. Your trip. Your way.</p>
+        <p style="color: #64748B; font-size: 0.8rem;">Enquiry-based travel planning service.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL: GOOGLE APPS SCRIPT WEB APP CONFIGURATION -->
+  <div class="modal-overlay hidden" id="scriptConfigModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Google Apps Script Web App Connection</h3>
+        <button type="button" class="modal-close-btn" id="btnCloseScriptConfig" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Your Google Sheet is ready at ID: <code>1m2z_WiD_bztcj0lTSBD3MZeJKAXikfW1WLGAIRjduj4</code></p>
+        
+        <ol>
+          <li>Open your Google Sheet and click <strong>Extensions &gt; Apps Script</strong>.</li>
+          <li>Paste the code from <code>Code.gs</code> and click <strong>Save</strong>.</li>
+          <li>Click <strong>Deploy &gt; Manage deployments</strong> (or New deployment) &gt; select <strong>Web app</strong>.</li>
+          <li>Set <strong>Execute as: Me</strong> and set <strong>Who has access: Anyone</strong> <span style="color: #DC2626; font-weight: bold;">(Crucial: NOT 'Only myself')</span>.</li>
+          <li>Click <strong>Deploy</strong>, authorize permissions, and copy the Web App URL below:</li>
+        </ol>
+
+        <div class="modal-input-wrap">
+          <label for="customScriptUrlInput" class="form-label">Apps Script Web App URL:</label>
+          <input type="url" id="customScriptUrlInput" class="form-input" placeholder="https://script.google.com/macros/s/.../exec" />
+          <p class="form-hint">Tip: You can also permanently update <code>CONFIG.GOOGLE_SCRIPT_URL</code> in <code>js/googleSheets.js</code>.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary-action" id="btnCancelConfig" onclick="document.getElementById('scriptConfigModal').classList.add('hidden')">Close</button>
+        <button type="button" class="btn-header-cta" id="btnSaveScriptUrl">Save &amp; Connect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript Application Entry -->
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
