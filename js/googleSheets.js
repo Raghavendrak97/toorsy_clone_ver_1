@@ -10,8 +10,8 @@ export const CONFIG = {
   GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyIpuPL1IJEEDDBG00jHcp7K7mmYky49Tyg0DPyGvl19R2_tKj882SrUd8z5QbBk8Id/exec",
 
   // Contact placeholders
-  TOORSY_PHONE: "+91 98765 43210",
-  TOORSY_WHATSAPP: "+919876543210",
+  TOORSY_PHONE: "+91 00000 00000",
+  TOORSY_WHATSAPP: "+910000000000",
 
   SPREADSHEET_ID: "1m2z_WiD_bztcj0lTSBD3MZeJKAXikfW1WLGAIRjduj4"
 };
