@@ -1014,15 +1014,16 @@ button, input, select, textarea {
 .consent-checkbox {
   width: 20px;
   height: 20px;
-  margin-top: 2px;
+  margin-top: 3px;
+  flex-shrink: 0; 
   accent-color: var(--color-primary);
   cursor: pointer;
 }
 
 .consent-label {
-  font-size: 0.92rem;
-  color: var(--color-slate-800);
-  line-height: 1.45;
+  font-size: 0.88rem;
+  color: var(--color-slate-700);
+  line-height: 1.55;
   cursor: pointer;
 }
 
